@@ -15,11 +15,15 @@ async function uploadOnCloudinary(path) {
         if (!path) return null
         const uploadResult = await cloudinary.uploader.upload(path, {
              resource_type: "auto" })
+
         //TODO - If file uplaod successfully on cloudinary then delete the file from server
         return uploadResult
     } catch (error) {
-        throw new ApiError(400,"Error : Error in uplaoding the file on CLoudinary")
-        //TODO - If file uplaod successfully on cloudinary then delete the file from server
+       return resizeBy.status(400).json({
+        message : "Error Uplaoding on Cloudinary"
+       })
+
+        //TODO - If file uplaod fails on cloudinary then delete the file from server
 
     }
 }
