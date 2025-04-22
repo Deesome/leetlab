@@ -2,6 +2,7 @@ import express from "express"
 import dotenv from "dotenv"
 
 
+
 dotenv.config()
 
 
@@ -13,6 +14,11 @@ app.use(express.json())
 app.get("/",(req,res)=>{
     res.send("Welcome to LEETLAB🔥")
 })
+
+// import routes 
+import authRouter from "./routes/auth.route.js"
+
+app.use("/api/v1/user",authRouter)
 
 
 
