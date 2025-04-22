@@ -84,7 +84,78 @@ const register = async (req, res) => {
 
 }
 
+const login = async (req,res) => {
+    const {email,password} = req.body
+
+    if(!email || !password){
+        return res.status(400).json({
+            success : false,
+            message : "All the fields are required"
+        })
+    }
+
+   try {
+     const user = await db.user.findUnique({
+         where : {
+             email
+         }
+     })
+ 
+     if(!user){
+         return res.status(401).json({
+             success : false,
+             message : "User does not exist, Please signup first"
+         })
+     }
+ 
+     const isMatch = await bcrypt.compare(password,user.password)
+ 
+     if(!isMatch){
+         return res.status(401).json({
+             success : false,
+             message : "Invalid Credentials"
+         })
+     }
+ 
+     const token = jwt.sign(
+         {id:user.id},
+         process.env.JWT_SECRET,
+         {
+             expiresIn : "7d"
+         }
+     )
+ 
+     res.cookie("jwt",token,{
+         httpOnly : true,
+         sameSite : "strict",
+         secure : process.env.NODE_ENV !== "development",
+         maxAge : 7*24*60*60*1000
+     })
+ 
+ 
+     res.status(201).json({
+         message : "User Login Successfully",
+         user : {
+             id : user.id,
+             name : user.name,
+             email : user.email,
+             role : user.role,
+             image : user.image
+         }
+     })
+   } catch (error) {
+
+    console.error("error logging in user",error)
+        res.status(500).json({
+            error : "Error logging in user"
+        })
+
+    
+   }
+
+}
 
 
 
-export {register}
+
+export {register,login}
