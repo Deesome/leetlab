@@ -45,20 +45,7 @@ const register = async (req, res) => {
             }
         })
 
-        const token = jwt.sign(
-            {id:newUser.id},
-            process.env.JWT_SECRET,
-            {
-                expiresIn : "7d"
-            }
-        )
-
-        res.cookie("jwt",token,{
-            httpOnly : true,
-            sameSite : "strict",
-            secure : process.env.NODE_ENV !== "development",
-            maxAge : 7*24*60*60*1000
-        })
+    
 
         res.status(201).json({
             message : "User Created Successfully",
@@ -155,7 +142,28 @@ const login = async (req,res) => {
 
 }
 
+const logout = async (req,res) => {
+    try {
+        res.clearCookie("jwt",{
+            httpOnly : true,
+            sameSite : "strict",
+            secure : process.env.NODE_ENV !== "development",
+           })
+    
+           return res.status(200).json({
+            successs : true,
+            message : " User Logout Successfully"
+           })
+    } catch (error) {
+        console.error("Error logging out user",error)
+        res.status(500).json({
+            message : "Error logging out the user"
+        })
+
+        
+    }
+}
 
 
 
-export {register,login}
+export {register,login,logout}
