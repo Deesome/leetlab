@@ -1,5 +1,6 @@
 import express from "express"
 import dotenv from "dotenv"
+import cookieParser from "cookie-parser"
 
 
 
@@ -10,6 +11,8 @@ const app = express()
 const port = process.env.PORT || 8080
 
 app.use(express.json())
+app.use(cookieParser())
+
 
 app.get("/",(req,res)=>{
     res.send("Welcome to LEETLAB🔥")
