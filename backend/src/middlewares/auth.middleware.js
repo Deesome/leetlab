@@ -4,6 +4,7 @@ import { db } from "../libs/db.js"
 
 const authMiddleware = async(req,res,next) =>{
 
+
     try {
         const token = req.cookies.jwt
         if(!token){
