@@ -1,4 +1,8 @@
-import { getIdOfLanguage, submitBatch,pollBatchResults } from "../libs/judge0.libs.js";
+import {
+  getIdOfLanguage,
+  submitBatch,
+  pollBatchResults,
+} from "../libs/judge0.libs.js";
 import { db } from "../libs/db.js";
 
 const createProblem = async (req, res) => {
@@ -49,32 +53,30 @@ const createProblem = async (req, res) => {
       }
 
       // ready submission
-     const submissions = testcases.map((testcase) => {
-      const { input, output } = testcase;
-      return {
-        source_code: solutionCode,
-        language_id: languageId,
-        stdin: input,
-        expected_output: output,
-      };
-    });
+      const submissions = testcases.map((testcase) => {
+        const { input, output } = testcase;
+        return {
+          source_code: solutionCode,
+          language_id: languageId,
+          stdin: input,
+          expected_output: output,
+        };
+      });
 
-    console.log("-------------")
-    console.log("Submission",submissions) // array of an object
+      console.log("-------------");
+      console.log("Submission", submissions); // array of an object
 
-    // now send to judge0
-    const submissionResults = await submitBatch(submissions);
-    console.log("----------")
-    console.log("submission Results", submissionResults); // array of an object [{token},{token},{token}]
+      // now send to judge0
+      const submissionResults = await submitBatch(submissions);
+      console.log("----------");
+      console.log("submission Results", submissionResults); // array of an object [{token},{token},{token}]
 
-    // loop through tokens
-      const tokens  = submissionResults.map(res => (res.token))
-      console.log("tokens",tokens) // array of token
-
+      // loop through tokens
+      const tokens = submissionResults.map((res) => res.token);
+      console.log("tokens", tokens); // array of token
 
       const results = await pollBatchResults(tokens);
-      console.log("results",results) // array of an object
-
+      console.log("results", results); // array of an object
 
       for (let i = 0; i < results.length; i++) {
         const result = results[i];
@@ -85,7 +87,6 @@ const createProblem = async (req, res) => {
           });
         }
       }
-
     }
 
     const newProblem = await db.problem.create({
@@ -116,31 +117,58 @@ const createProblem = async (req, res) => {
   }
 };
 
-const getAllProblems = async(req,res)=>{
+const getAllProblems = async (req, res) => {
   // get all the problems from database
 
- try {
-   const problems = await db.problem.findMany()
- 
-   if(!problems){
-     return res.status(400).json({
-       message: "no problem found"
-     })
-   }
- 
-   return res.status(200).json({
-     sucess: true,
-       message: "Problems fetched Successfully",
-       problems,
-   })
- } catch (error) {
+  try {
+    const problems = await db.problem.findMany();
 
-  console.log(error);
-  return res.status(500).json({
-    error: "Error While Fetching Problems",
-  });
+    if (!problems) {
+      return res.status(400).json({
+        message: "no problem found",
+      });
+    }
 
-}
-}
+    return res.status(200).json({
+      sucess: true,
+      message: "Problems fetched Successfully",
+      problems,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: "Error While Fetching Problems",
+    });
+  }
+};
 
-export { createProblem,getAllProblems };
+const getProblemById = async (req, res) => {
+  const {problemId} = req.params;
+
+  try {
+    const problem = await db.problem.findUnique({
+        where : {
+          id : problemId
+        }
+    });
+
+    if (!problem) {
+      return res.status(400).json({
+        message: "Problem not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Successfully Fetched Problem by ID",
+      problem,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: "Error While Fetching Problem by ID",
+    });
+  }
+};
+
+export { createProblem, getAllProblems,getProblemById };
