@@ -14,14 +14,14 @@ app.use(express.json())
 app.use(cookieParser())
 
 
-app.get("/",(req,res)=>{
-    res.send("Welcome to LEETLAB🔥")
-})
+
 
 // import routes 
 import authRouter from "./routes/auth.route.js"
+import problemRouter from "./routes/problem.route.js"
 
 app.use("/api/v1/user",authRouter)
+app.use("/api/v1/problem",problemRouter)
 
 
 
