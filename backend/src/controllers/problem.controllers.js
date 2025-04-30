@@ -143,13 +143,13 @@ const getAllProblems = async (req, res) => {
 };
 
 const getProblemById = async (req, res) => {
-  const {problemId} = req.params;
+  const { problemId } = req.params;
 
   try {
     const problem = await db.problem.findUnique({
-        where : {
-          id : problemId
-        }
+      where: {
+        id: problemId,
+      },
     });
 
     if (!problem) {
@@ -171,41 +171,160 @@ const getProblemById = async (req, res) => {
   }
 };
 
+const updateProblemById = async (req, res) => {
+  // get the problemId from req.params
+  //  get all the fields from body
+  //  At Frontend , all the filed will be prefilled
+  // now same as create Problem
 
-
-const deleteProblem = async(req,res) =>{
-  const {problemId} = req.params
+  const { problemId } = req.params;
+ 
 
   try {
-
     const problem = await db.problem.findUnique({
-      where : {
-        id : problemId
-      }
-    })
-    
-    if(!problem){
+      where: {
+        id: problemId,
+      },
+    });
+
+    if (!problem) {
       return res.status(400).json({
-        message : "Problem does not exist"
+        message: "Problem not found",
+      });
+    }
+
+    const {
+      title,
+      description,
+      difficulty,
+      tags,
+      examples,
+      testcases,
+      codeSnippets,
+      constraints,
+      referenceSolutions,
+    } = req.body;
+
+    if (req.user.role !== "ADMIN") {
+      return res.status(403).json({
+        message: "Access Denied- admins only",
+      });
+    }
+
+    // refernceSolution : it is an object that contains language and its solution
+    // so we need to extract the language and its specific solutiion
+
+    for(const[language,solutionCode] of Object.entries(referenceSolutions)){
+      // now get the languageID so that we can send it to judge0
+
+      const languageId = await getIdOfLanguage(language)
+
+      if(!languageId){
+        return res.status(400).json({
+          message : `Language ${language} is not supported`
+        })
+      }
+
+      // now prepare the submission 
+
+      const submissions = testcases.map(testcase => {
+        const {input,output} = testcase
+
+        return {
+          source_code : solutionCode,
+          language_id  : languageId,
+          stdin : input,
+          expected_output : output
+        }
       })
+
+      // now send this submissions to judge0
+
+      const submissionResults = await submitBatch(submissions) //tokens
+
+      if(!submissionResults){
+        return res.status(400).json({
+          message : "Error in handling submissionResults by JUDGE0"
+        })
+      }
+
+      const tokens = submissionResults.map((res)=> res.token)
+      console.log("tokens",tokens)
+
+      const results = await pollBatchResults(tokens)
+
+      for(let i = 0 ; i<results.length; i++){
+        const result = results[i]
+
+        if(result.status.id !== 3){
+          return res.status(400).json({
+            error: `Testcase ${i + 1} failed for language ${language}`,
+          });
+        }
+      }
+    }
+
+    const updatedProblem = await db.problem.create({
+      data: {
+        title,
+        description,
+        difficulty,
+        tags,
+        examples,
+        constraints,
+        testcases,
+        codeSnippets,
+        referenceSolutions,
+        userId: req.user.id,
+      },
+    })
+
+    return res.status(200).json({
+      sucess: true,
+      message: "Problem Updated Successfully",
+      problem: updatedProblem
+    })
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: "Error While Updating Problem",
+    });
+  }
+};
+
+const deleteProblem = async (req, res) => {
+  const { problemId } = req.params;
+
+  try {
+    const problem = await db.problem.findUnique({
+      where: {
+        id: problemId,
+      },
+    });
+
+    if (!problem) {
+      return res.status(400).json({
+        message: "Problem does not exist",
+      });
     }
 
     await db.problem.delete({
-      where : {
-        id : problemId
-      }
-    })
+      where: {
+        id: problemId,
+      },
+    });
 
     res.status(200).json({
-      success :  true,
-      message : "Problem Deleted Successfully"
-    })
+      success: true,
+      message: "Problem Deleted Successfully",
+    });
   } catch (error) {
-      console.log(error)
-      return res.status(500).json({
-        error: "Error While deleting the problem",
-      });
+    console.log(error);
+    return res.status(500).json({
+      error: "Error While deleting the problem",
+    });
   }
-}
+};
 
-export { createProblem, getAllProblems,getProblemById,deleteProblem };
+export { createProblem, getAllProblems, getProblemById,updateProblemById,deleteProblem };
