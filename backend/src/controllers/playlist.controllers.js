@@ -2,8 +2,6 @@ import { db } from "../libs/db.js"
 
 
 // create playList
-
-
 const createPlayList = async(req,res)=>{
     // get name and description for body 
     // user must be login 
@@ -61,6 +59,10 @@ const createPlayList = async(req,res)=>{
  }
 
 }
+
+// get all playlist
+
+
 
 
 export {createPlayList}
