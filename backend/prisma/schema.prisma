@@ -67,8 +67,8 @@ model Submission {
   sourceCode    Json
   language      String
   stdin         String?
-  stdout        String?
-  stderr        String?
+  stdout        String? // ["","",""]
+  stderr        String? // 
   compileOutput String?
   status        String
   memory        String?
@@ -87,7 +87,7 @@ model Submission {
 model TestCaseResult {
   id            String  @id @default(uuid())
   submissionId  String
-  testCase      Int
+  testCase      Int // testcase number
   passed        Boolean
   stdout        String?
   expected      String
