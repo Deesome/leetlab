@@ -45,6 +45,7 @@ const authMiddleware = async (req, res, next) => {
         }
         // console.log("line 44",user)
         req.user = user
+        
         next()
     } catch (error) {
         console.error("Error Authenticating User", error)
