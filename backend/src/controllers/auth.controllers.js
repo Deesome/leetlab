@@ -31,8 +31,10 @@ const register = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10)
 
-        const imageLocalFilePath = req?.file.path
+        const imageLocalFilePath = req.file?.path
+        
         const imageResponse = await uploadOnCloudinary(imageLocalFilePath)
+        
       
 
         const newUser = await db.user.create({
