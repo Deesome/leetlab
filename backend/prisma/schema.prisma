@@ -20,14 +20,14 @@ enum Difficulty {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String?
-  email     String   @unique
-  image     String?
-  role      userRole @default(USER)
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String          @id @default(uuid())
+  name          String?
+  email         String          @unique
+  image         String?
+  role          userRole        @default(USER)
+  password      String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
   Problems      Problem[]
   Submission    Submission[]
   problemSolved ProblemSolved[]
@@ -159,10 +159,10 @@ model Streak {
   userId                      String @unique
   lastLoginDate               DateTime
   lastCodeSubmissionDate      DateTime
-  loginStreak                 Int
-  codeSubmissionStreak        Int
-  longestLoginStreak          Int
-  longestCodeSubmissionStreak Int
-  
+  loginStreak                 Int?
+  codeSubmissionStreak        Int?
+  longestLoginStreak          Int?
+  longestCodeSubmissionStreak Int?
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

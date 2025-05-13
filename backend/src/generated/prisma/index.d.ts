@@ -10030,11 +10030,11 @@ export namespace Prisma {
     id: string
     userId: string
     lastLoginDate: Date
-    lastCodeSubmissionDate: Date
-    loginStreak: number
-    codeSubmissionStreak: number
-    longestLoginStreak: number
-    longestCodeSubmissionStreak: number
+    lastCodeSubmissionDate: Date | null
+    loginStreak: number | null
+    codeSubmissionStreak: number | null
+    longestLoginStreak: number | null
+    longestCodeSubmissionStreak: number | null
     _count: StreakCountAggregateOutputType | null
     _avg: StreakAvgAggregateOutputType | null
     _sum: StreakSumAggregateOutputType | null
@@ -10123,11 +10123,11 @@ export namespace Prisma {
       id: string
       userId: string
       lastLoginDate: Date
-      lastCodeSubmissionDate: Date
-      loginStreak: number
-      codeSubmissionStreak: number
-      longestLoginStreak: number
-      longestCodeSubmissionStreak: number
+      lastCodeSubmissionDate: Date | null
+      loginStreak: number | null
+      codeSubmissionStreak: number | null
+      longestLoginStreak: number | null
+      longestCodeSubmissionStreak: number | null
     }, ExtArgs["result"]["streak"]>
     composites: {}
   }
@@ -11851,11 +11851,11 @@ export namespace Prisma {
     id?: StringFilter<"Streak"> | string
     userId?: StringFilter<"Streak"> | string
     lastLoginDate?: DateTimeFilter<"Streak"> | Date | string
-    lastCodeSubmissionDate?: DateTimeFilter<"Streak"> | Date | string
-    loginStreak?: IntFilter<"Streak"> | number
-    codeSubmissionStreak?: IntFilter<"Streak"> | number
-    longestLoginStreak?: IntFilter<"Streak"> | number
-    longestCodeSubmissionStreak?: IntFilter<"Streak"> | number
+    lastCodeSubmissionDate?: DateTimeNullableFilter<"Streak"> | Date | string | null
+    loginStreak?: IntNullableFilter<"Streak"> | number | null
+    codeSubmissionStreak?: IntNullableFilter<"Streak"> | number | null
+    longestLoginStreak?: IntNullableFilter<"Streak"> | number | null
+    longestCodeSubmissionStreak?: IntNullableFilter<"Streak"> | number | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
@@ -11863,11 +11863,11 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     lastLoginDate?: SortOrder
-    lastCodeSubmissionDate?: SortOrder
-    loginStreak?: SortOrder
-    codeSubmissionStreak?: SortOrder
-    longestLoginStreak?: SortOrder
-    longestCodeSubmissionStreak?: SortOrder
+    lastCodeSubmissionDate?: SortOrderInput | SortOrder
+    loginStreak?: SortOrderInput | SortOrder
+    codeSubmissionStreak?: SortOrderInput | SortOrder
+    longestLoginStreak?: SortOrderInput | SortOrder
+    longestCodeSubmissionStreak?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
   }
 
@@ -11878,11 +11878,11 @@ export namespace Prisma {
     OR?: StreakWhereInput[]
     NOT?: StreakWhereInput | StreakWhereInput[]
     lastLoginDate?: DateTimeFilter<"Streak"> | Date | string
-    lastCodeSubmissionDate?: DateTimeFilter<"Streak"> | Date | string
-    loginStreak?: IntFilter<"Streak"> | number
-    codeSubmissionStreak?: IntFilter<"Streak"> | number
-    longestLoginStreak?: IntFilter<"Streak"> | number
-    longestCodeSubmissionStreak?: IntFilter<"Streak"> | number
+    lastCodeSubmissionDate?: DateTimeNullableFilter<"Streak"> | Date | string | null
+    loginStreak?: IntNullableFilter<"Streak"> | number | null
+    codeSubmissionStreak?: IntNullableFilter<"Streak"> | number | null
+    longestLoginStreak?: IntNullableFilter<"Streak"> | number | null
+    longestCodeSubmissionStreak?: IntNullableFilter<"Streak"> | number | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "userId">
 
@@ -11890,11 +11890,11 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     lastLoginDate?: SortOrder
-    lastCodeSubmissionDate?: SortOrder
-    loginStreak?: SortOrder
-    codeSubmissionStreak?: SortOrder
-    longestLoginStreak?: SortOrder
-    longestCodeSubmissionStreak?: SortOrder
+    lastCodeSubmissionDate?: SortOrderInput | SortOrder
+    loginStreak?: SortOrderInput | SortOrder
+    codeSubmissionStreak?: SortOrderInput | SortOrder
+    longestLoginStreak?: SortOrderInput | SortOrder
+    longestCodeSubmissionStreak?: SortOrderInput | SortOrder
     _count?: StreakCountOrderByAggregateInput
     _avg?: StreakAvgOrderByAggregateInput
     _max?: StreakMaxOrderByAggregateInput
@@ -11909,11 +11909,11 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Streak"> | string
     userId?: StringWithAggregatesFilter<"Streak"> | string
     lastLoginDate?: DateTimeWithAggregatesFilter<"Streak"> | Date | string
-    lastCodeSubmissionDate?: DateTimeWithAggregatesFilter<"Streak"> | Date | string
-    loginStreak?: IntWithAggregatesFilter<"Streak"> | number
-    codeSubmissionStreak?: IntWithAggregatesFilter<"Streak"> | number
-    longestLoginStreak?: IntWithAggregatesFilter<"Streak"> | number
-    longestCodeSubmissionStreak?: IntWithAggregatesFilter<"Streak"> | number
+    lastCodeSubmissionDate?: DateTimeNullableWithAggregatesFilter<"Streak"> | Date | string | null
+    loginStreak?: IntNullableWithAggregatesFilter<"Streak"> | number | null
+    codeSubmissionStreak?: IntNullableWithAggregatesFilter<"Streak"> | number | null
+    longestLoginStreak?: IntNullableWithAggregatesFilter<"Streak"> | number | null
+    longestCodeSubmissionStreak?: IntNullableWithAggregatesFilter<"Streak"> | number | null
   }
 
   export type UserCreateInput = {
@@ -12559,11 +12559,11 @@ export namespace Prisma {
   export type StreakCreateInput = {
     id?: string
     lastLoginDate: Date | string
-    lastCodeSubmissionDate: Date | string
-    loginStreak: number
-    codeSubmissionStreak: number
-    longestLoginStreak: number
-    longestCodeSubmissionStreak: number
+    lastCodeSubmissionDate?: Date | string | null
+    loginStreak?: number | null
+    codeSubmissionStreak?: number | null
+    longestLoginStreak?: number | null
+    longestCodeSubmissionStreak?: number | null
     user: UserCreateNestedOneWithoutStreakInput
   }
 
@@ -12571,21 +12571,21 @@ export namespace Prisma {
     id?: string
     userId: string
     lastLoginDate: Date | string
-    lastCodeSubmissionDate: Date | string
-    loginStreak: number
-    codeSubmissionStreak: number
-    longestLoginStreak: number
-    longestCodeSubmissionStreak: number
+    lastCodeSubmissionDate?: Date | string | null
+    loginStreak?: number | null
+    codeSubmissionStreak?: number | null
+    longestLoginStreak?: number | null
+    longestCodeSubmissionStreak?: number | null
   }
 
   export type StreakUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     lastLoginDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastCodeSubmissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    loginStreak?: IntFieldUpdateOperationsInput | number
-    codeSubmissionStreak?: IntFieldUpdateOperationsInput | number
-    longestLoginStreak?: IntFieldUpdateOperationsInput | number
-    longestCodeSubmissionStreak?: IntFieldUpdateOperationsInput | number
+    lastCodeSubmissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginStreak?: NullableIntFieldUpdateOperationsInput | number | null
+    codeSubmissionStreak?: NullableIntFieldUpdateOperationsInput | number | null
+    longestLoginStreak?: NullableIntFieldUpdateOperationsInput | number | null
+    longestCodeSubmissionStreak?: NullableIntFieldUpdateOperationsInput | number | null
     user?: UserUpdateOneRequiredWithoutStreakNestedInput
   }
 
@@ -12593,43 +12593,43 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     lastLoginDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastCodeSubmissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    loginStreak?: IntFieldUpdateOperationsInput | number
-    codeSubmissionStreak?: IntFieldUpdateOperationsInput | number
-    longestLoginStreak?: IntFieldUpdateOperationsInput | number
-    longestCodeSubmissionStreak?: IntFieldUpdateOperationsInput | number
+    lastCodeSubmissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginStreak?: NullableIntFieldUpdateOperationsInput | number | null
+    codeSubmissionStreak?: NullableIntFieldUpdateOperationsInput | number | null
+    longestLoginStreak?: NullableIntFieldUpdateOperationsInput | number | null
+    longestCodeSubmissionStreak?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type StreakCreateManyInput = {
     id?: string
     userId: string
     lastLoginDate: Date | string
-    lastCodeSubmissionDate: Date | string
-    loginStreak: number
-    codeSubmissionStreak: number
-    longestLoginStreak: number
-    longestCodeSubmissionStreak: number
+    lastCodeSubmissionDate?: Date | string | null
+    loginStreak?: number | null
+    codeSubmissionStreak?: number | null
+    longestLoginStreak?: number | null
+    longestCodeSubmissionStreak?: number | null
   }
 
   export type StreakUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     lastLoginDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastCodeSubmissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    loginStreak?: IntFieldUpdateOperationsInput | number
-    codeSubmissionStreak?: IntFieldUpdateOperationsInput | number
-    longestLoginStreak?: IntFieldUpdateOperationsInput | number
-    longestCodeSubmissionStreak?: IntFieldUpdateOperationsInput | number
+    lastCodeSubmissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginStreak?: NullableIntFieldUpdateOperationsInput | number | null
+    codeSubmissionStreak?: NullableIntFieldUpdateOperationsInput | number | null
+    longestLoginStreak?: NullableIntFieldUpdateOperationsInput | number | null
+    longestCodeSubmissionStreak?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type StreakUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     lastLoginDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastCodeSubmissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    loginStreak?: IntFieldUpdateOperationsInput | number
-    codeSubmissionStreak?: IntFieldUpdateOperationsInput | number
-    longestLoginStreak?: IntFieldUpdateOperationsInput | number
-    longestCodeSubmissionStreak?: IntFieldUpdateOperationsInput | number
+    lastCodeSubmissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginStreak?: NullableIntFieldUpdateOperationsInput | number | null
+    codeSubmissionStreak?: NullableIntFieldUpdateOperationsInput | number | null
+    longestLoginStreak?: NullableIntFieldUpdateOperationsInput | number | null
+    longestCodeSubmissionStreak?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -13216,6 +13216,28 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type StreakCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -13261,6 +13283,36 @@ export namespace Prisma {
     codeSubmissionStreak?: SortOrder
     longestLoginStreak?: SortOrder
     longestCodeSubmissionStreak?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type ProblemCreateNestedManyWithoutUserInput = {
@@ -13848,6 +13900,18 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type UserUpdateOneRequiredWithoutStreakNestedInput = {
     create?: XOR<UserCreateWithoutStreakInput, UserUncheckedCreateWithoutStreakInput>
     connectOrCreate?: UserCreateOrConnectWithoutStreakInput
@@ -14062,6 +14126,58 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type ProblemCreateWithoutUserInput = {
     id?: string
     title: string
@@ -14211,21 +14327,21 @@ export namespace Prisma {
   export type StreakCreateWithoutUserInput = {
     id?: string
     lastLoginDate: Date | string
-    lastCodeSubmissionDate: Date | string
-    loginStreak: number
-    codeSubmissionStreak: number
-    longestLoginStreak: number
-    longestCodeSubmissionStreak: number
+    lastCodeSubmissionDate?: Date | string | null
+    loginStreak?: number | null
+    codeSubmissionStreak?: number | null
+    longestLoginStreak?: number | null
+    longestCodeSubmissionStreak?: number | null
   }
 
   export type StreakUncheckedCreateWithoutUserInput = {
     id?: string
     lastLoginDate: Date | string
-    lastCodeSubmissionDate: Date | string
-    loginStreak: number
-    codeSubmissionStreak: number
-    longestLoginStreak: number
-    longestCodeSubmissionStreak: number
+    lastCodeSubmissionDate?: Date | string | null
+    loginStreak?: number | null
+    codeSubmissionStreak?: number | null
+    longestLoginStreak?: number | null
+    longestCodeSubmissionStreak?: number | null
   }
 
   export type StreakCreateOrConnectWithoutUserInput = {
@@ -14375,21 +14491,21 @@ export namespace Prisma {
   export type StreakUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     lastLoginDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastCodeSubmissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    loginStreak?: IntFieldUpdateOperationsInput | number
-    codeSubmissionStreak?: IntFieldUpdateOperationsInput | number
-    longestLoginStreak?: IntFieldUpdateOperationsInput | number
-    longestCodeSubmissionStreak?: IntFieldUpdateOperationsInput | number
+    lastCodeSubmissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginStreak?: NullableIntFieldUpdateOperationsInput | number | null
+    codeSubmissionStreak?: NullableIntFieldUpdateOperationsInput | number | null
+    longestLoginStreak?: NullableIntFieldUpdateOperationsInput | number | null
+    longestCodeSubmissionStreak?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type StreakUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     lastLoginDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastCodeSubmissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    loginStreak?: IntFieldUpdateOperationsInput | number
-    codeSubmissionStreak?: IntFieldUpdateOperationsInput | number
-    longestLoginStreak?: IntFieldUpdateOperationsInput | number
-    longestCodeSubmissionStreak?: IntFieldUpdateOperationsInput | number
+    lastCodeSubmissionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginStreak?: NullableIntFieldUpdateOperationsInput | number | null
+    codeSubmissionStreak?: NullableIntFieldUpdateOperationsInput | number | null
+    longestLoginStreak?: NullableIntFieldUpdateOperationsInput | number | null
+    longestCodeSubmissionStreak?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type UserCreateWithoutProblemsInput = {

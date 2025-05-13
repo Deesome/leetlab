@@ -155,14 +155,14 @@ model ProblemInPlaylist {
 }
 
 model Streak {
-  id                          String   @id @default(uuid())
-  userId                      String   @unique
+  id                          String    @id @default(uuid())
+  userId                      String    @unique
   lastLoginDate               DateTime
-  lastCodeSubmissionDate      DateTime
-  loginStreak                 Int
-  codeSubmissionStreak        Int
-  longestLoginStreak          Int
-  longestCodeSubmissionStreak Int
+  lastCodeSubmissionDate      DateTime?
+  loginStreak                 Int?
+  codeSubmissionStreak        Int?
+  longestLoginStreak          Int?
+  longestCodeSubmissionStreak Int?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

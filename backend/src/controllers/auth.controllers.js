@@ -3,6 +3,7 @@ import { db } from "../libs/db.js"
 import { userRole } from "../generated/prisma/index.js"
 import uploadOnCloudinary from "../utils/cloudinary.js"
 import jwt from "jsonwebtoken"
+import { updateLoginStreak } from "../utils/streak.js"
 
 
 const register = async (req, res) => {
@@ -87,6 +88,9 @@ const login = async (req,res) => {
      const user = await db.user.findUnique({
          where : {
              email
+         },
+         include : {
+            Streak : true
          }
      })
  
@@ -105,6 +109,9 @@ const login = async (req,res) => {
              message : "Invalid Credentials"
          })
      }
+
+    await updateLoginStreak(user)
+
  
      const token = jwt.sign(
          {id:user.id},
@@ -129,7 +136,7 @@ const login = async (req,res) => {
              name : user.name,
              email : user.email,
              role : user.role,
-             image : user.image
+             image : user.image,
          }
      })
    } catch (error) {
