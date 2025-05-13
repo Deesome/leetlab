@@ -204,6 +204,17 @@ exports.Prisma.ProblemInPlaylistScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.StreakScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  lastLoginDate: 'lastLoginDate',
+  lastCodeSubmissionDate: 'lastCodeSubmissionDate',
+  loginStreak: 'loginStreak',
+  codeSubmissionStreak: 'codeSubmissionStreak',
+  longestLoginStreak: 'longestLoginStreak',
+  longestCodeSubmissionStreak: 'longestCodeSubmissionStreak'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -246,7 +257,8 @@ exports.Prisma.ModelName = {
   TestCaseResult: 'TestCaseResult',
   ProblemSolved: 'ProblemSolved',
   Playlist: 'Playlist',
-  ProblemInPlaylist: 'ProblemInPlaylist'
+  ProblemInPlaylist: 'ProblemInPlaylist',
+  Streak: 'Streak'
 };
 
 /**

@@ -32,6 +32,7 @@ model User {
   Submission    Submission[]
   problemSolved ProblemSolved[]
   Playlist      Playlist[]
+  Streak        Streak?
 }
 
 model Problem {
@@ -151,4 +152,17 @@ model ProblemInPlaylist {
   updatedAt DateTime @updatedAt
 
   @@unique([playListId, problemId])
+}
+
+model Streak {
+  id                          String   @id @default(uuid())
+  userId                      String   @unique
+  lastLoginDate               DateTime
+  lastCodeSubmissionDate      DateTime
+  loginStreak                 Int
+  codeSubmissionStreak        Int
+  longestLoginStreak          Int
+  longestCodeSubmissionStreak Int
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
